@@ -1,0 +1,33 @@
+# app1.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  namespace: playground
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - name: app1
+          image: nginxdemos/hello:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1
+  namespace: playground
+spec:
+  selector:
+    app: app1
+  ports:
+    - port: 80
+      targetPort: 80
